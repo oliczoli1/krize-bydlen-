@@ -2,8 +2,429 @@
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="style.css">
 
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f5f5f2;
+  color: #22221f;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+.page {
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 60px 0 100px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+  margin-bottom: 45px;
+}
+
+.label {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #777770;
+  margin-bottom: 15px;
+}
+
+h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 52px;
+  font-weight: normal;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.subtitle {
+  margin-top: 18px;
+  color: #777770;
+  font-size: 17px;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.lesson-section {
+  margin-bottom: 55px;
+}
+
+.section-number {
+  margin-bottom: 10px;
+  color: #315c4c;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+h2 {
+  margin: 0 0 10px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 32px;
+  font-weight: normal;
+}
+
+.section-description {
+  margin: 0 0 25px;
+  color: #777770;
+}
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress-wrapper {
+  margin-bottom: 30px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+  font-size: 13px;
+  color: #777770;
+}
+
+.progress-background {
+  width: 100%;
+  height: 4px;
+  background: #deded9;
+  border-radius: 10px;
+}
+
+.progress {
+  width: 0%;
+  height: 100%;
+  background: #315c4c;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+
+/* =========================
+   EXERCISE 1
+========================= */
+
+.exercise {
+  background: white;
+  border: 1px solid #e2e2dd;
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: 25px;
+}
+
+.column-title {
+  margin-bottom: 10px;
+  color: #888880;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+
+/* CARDS */
+
+.card {
+  width: 100%;
+  min-height: 58px;
+  margin-bottom: 9px;
+  padding: 14px 16px;
+
+  background: #fff;
+  border: 1px solid #deded9;
+  border-radius: 8px;
+
+  color: #22221f;
+  text-align: left;
+  font-size: 15px;
+  line-height: 1.45;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.card:hover {
+  border-color: #999991;
+  transform: translateY(-1px);
+}
+
+.card.selected {
+  background: #edf3f0;
+  border-color: #315c4c;
+}
+
+.card.correct {
+  background: #edf6ef;
+  border-color: #9fc3aa;
+  color: #356b4d;
+  cursor: default;
+}
+
+.card.wrong {
+  background: #faf0f0;
+  border-color: #d7aaaa;
+  color: #a34b4b;
+}
+
+
+/* FEEDBACK */
+
+.feedback {
+  min-height: 25px;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.feedback.correct-message {
+  color: #356b4d;
+}
+
+.feedback.wrong-message {
+  color: #a34b4b;
+}
+
+
+/* FINISHED */
+
+.finished {
+  display: none;
+  margin-top: 25px;
+  padding: 20px;
+
+  background: #edf6ef;
+  border: 1px solid #b8d3bf;
+  border-radius: 8px;
+
+  color: #356b4d;
+}
+
+.finished.visible {
+  display: block;
+}
+
+.restart {
+  margin-top: 14px;
+  padding: 9px 15px;
+
+  background: #315c4c;
+  color: white;
+
+  border: none;
+  border-radius: 6px;
+
+  font-size: 14px;
+  cursor: pointer;
+}
+
+
+/* =========================
+   EXERCISE 2
+========================= */
+
+.sentences {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sentence {
+  padding: 20px;
+
+  background: white;
+  border: 1px solid #e2e2dd;
+  border-radius: 10px;
+}
+
+.sentence-number {
+  display: inline-block;
+  width: 25px;
+
+  color: #999991;
+  font-size: 13px;
+}
+
+.sentence-text {
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+
+/* ANSWER BUTTONS */
+
+.answers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.answer {
+  padding: 8px 14px;
+
+  background: #f8f8f6;
+  color: #33332f;
+
+  border: 1px solid #dcdcd7;
+  border-radius: 6px;
+
+  font: inherit;
+  font-size: 14px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.answer:hover {
+  background: #f0f0ed;
+  border-color: #aaa9a2;
+}
+
+.answer.correct {
+  background: #edf6ef;
+  border-color: #9fc3aa;
+  color: #356b4d;
+}
+
+.answer.wrong {
+  background: #faf0f0;
+  border-color: #d7aaaa;
+  color: #a34b4b;
+}
+
+.answer.disabled {
+  pointer-events: none;
+}
+
+
+/* ANSWER FEEDBACK */
+
+.sentence-feedback {
+  margin-top: 10px;
+  font-size: 13px;
+  min-height: 20px;
+}
+
+.sentence-feedback.correct {
+  color: #356b4d;
+}
+
+.sentence-feedback.wrong {
+  color: #a34b4b;
+}
+
+
+/* RESULT */
+
+.result {
+  display: none;
+
+  margin-top: 25px;
+  padding: 22px;
+
+  background: #fff;
+  border: 1px solid #e2e2dd;
+  border-radius: 10px;
+
+  text-align: center;
+}
+
+.result.visible {
+  display: block;
+}
+
+.result-score {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 32px;
+  margin-bottom: 5px;
+}
+
+.result-text {
+  color: #777770;
+}
+
+.restart-second {
+  margin-top: 15px;
+  padding: 9px 15px;
+
+  background: #315c4c;
+  color: white;
+
+  border: none;
+  border-radius: 6px;
+
+  font: inherit;
+  cursor: pointer;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+  .page {
+    width: calc(100% - 24px);
+    padding: 40px 0 70px;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  .exercise {
+    padding: 22px 18px;
+  }
+
+  .columns {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .answers {
+    flex-direction: column;
+  }
+
+  .answer {
+    width: 100%;
+    text-align: left;
+  }
+}
+
+</style>
 </head>
 
 
@@ -180,8 +601,836 @@
 </div>
 
 
+<script>
 
-<script src="script.js"></script>
+/* =====================================================
+   SLOVNÍK
+===================================================== */
+
+const vocabulary = [
+
+  {
+    word: "martyrium",
+    definition:
+      "velmi těžká nebo utrpením naplněná zkušenost"
+  },
+
+  {
+    word: "milník",
+    definition:
+      "významný bod nebo okamžik ve vývoji něčeho"
+  },
+
+  {
+    word: "utáhnout",
+    definition:
+      "finančně zvládnout něco zaplatit nebo si něco dovolit"
+  },
+
+  {
+    word: "opruz",
+    definition:
+      "něco velmi otravného, nepříjemného nebo protivného"
+  },
+
+  {
+    word: "frustrace",
+    definition:
+      "pocit zklamání, bezmoci nebo nespokojenosti"
+  },
+
+  {
+    word: "vyvstávat",
+    definition:
+      "náhle se objevit, vystoupit nebo vyrazit na povrch"
+  },
+
+  {
+    word: "protlouci se",
+    definition:
+      "nějak zvládnout obtížnou situaci nebo období"
+  },
+
+  {
+    word: "váznout",
+    definition:
+      "neprobíhat plynule, zpomalovat se nebo se komplikovat"
+  },
+
+  {
+    word: "stát o něco",
+    definition:
+      "chtít něco, mít o něco zájem nebo o něco usilovat"
+  },
+
+  {
+    word: "nabádat",
+    definition:
+      "vyzývat nebo vybízet někoho k určitému jednání"
+  },
+
+  {
+    word: "notný",
+    definition:
+      "značný, velký nebo vydatný"
+  },
+
+  {
+    word: "dvousečná zbraň",
+    definition:
+      "něco, co může mít pozitivní i negativní účinek"
+  },
+
+  {
+    word: "čtyřka (pajzl)",
+    definition:
+      "hovorové označení pro velmi obyčejnou nebo zanedbanou hospodu"
+  },
+
+  {
+    word: "vypulírovaný",
+    definition:
+      "dokonale upravený, naleštěný nebo velmi pečlivě upravený"
+  },
+
+  {
+    word: "nevraživost",
+    definition:
+      "nepřátelský nebo nepřející vztah mezi lidmi"
+  },
+
+];
+
+
+/* =====================================================
+   CVIČENÍ 1
+===================================================== */
+
+let selectedWord = null;
+let selectedDefinition = null;
+let completed = 0;
+
+
+function shuffle(array) {
+  return [...array].sort(
+    () => Math.random() - 0.5
+  );
+}
+
+
+function createExercise() {
+
+  const words =
+    document.getElementById("words");
+
+  const definitions =
+    document.getElementById("definitions");
+
+  words.innerHTML = "";
+  definitions.innerHTML = "";
+
+  selectedWord = null;
+  selectedDefinition = null;
+  completed = 0;
+
+
+  document
+    .getElementById("feedback")
+    .textContent = "";
+
+  document
+    .getElementById("finished")
+    .classList.remove("visible");
+
+
+  const items = vocabulary.map(
+    (item, index) => ({
+      ...item,
+      id: index
+    })
+  );
+
+
+  shuffle(items).forEach(item => {
+
+    const button =
+      document.createElement("button");
+
+    button.className = "card";
+
+    button.textContent =
+      item.word;
+
+    button.dataset.id =
+      item.id;
+
+    button.addEventListener(
+      "click",
+      () => selectWord(button)
+    );
+
+    words.appendChild(button);
+
+  });
+
+
+  shuffle(items).forEach(item => {
+
+    const button =
+      document.createElement("button");
+
+    button.className = "card";
+
+    button.textContent =
+      item.definition;
+
+    button.dataset.id =
+      item.id;
+
+    button.addEventListener(
+      "click",
+      () => selectDefinition(button)
+    );
+
+    definitions.appendChild(button);
+
+  });
+
+
+  updateProgress();
+
+}
+
+
+function selectWord(card) {
+
+  if (
+    card.classList.contains("correct")
+  ) return;
+
+
+  document
+    .querySelectorAll("#words .card")
+    .forEach(item => {
+      item.classList.remove("selected");
+    });
+
+
+  card.classList.add("selected");
+
+  selectedWord = card;
+
+  checkAnswer();
+
+}
+
+
+function selectDefinition(card) {
+
+  if (
+    card.classList.contains("correct")
+  ) return;
+
+
+  document
+    .querySelectorAll("#definitions .card")
+    .forEach(item => {
+      item.classList.remove("selected");
+    });
+
+
+  card.classList.add("selected");
+
+  selectedDefinition = card;
+
+  checkAnswer();
+
+}
+
+
+function checkAnswer() {
+
+  if (
+    !selectedWord ||
+    !selectedDefinition
+  ) return;
+
+
+  const wordId =
+    selectedWord.dataset.id;
+
+  const definitionId =
+    selectedDefinition.dataset.id;
+
+
+  const feedback =
+    document.getElementById("feedback");
+
+
+  if (wordId === definitionId) {
+
+    selectedWord.classList.remove(
+      "selected"
+    );
+
+    selectedDefinition.classList.remove(
+      "selected"
+    );
+
+
+    selectedWord.classList.add(
+      "correct"
+    );
+
+    selectedDefinition.classList.add(
+      "correct"
+    );
+
+
+    completed++;
+
+
+    feedback.textContent =
+      "✓ Správně";
+
+    feedback.className =
+      "feedback correct-message";
+
+
+    selectedWord = null;
+    selectedDefinition = null;
+
+
+    updateProgress();
+
+
+    if (
+      completed === vocabulary.length
+    ) {
+
+      setTimeout(() => {
+
+        document
+          .getElementById("finished")
+          .classList.add("visible");
+
+      }, 400);
+
+    }
+
+  }
+
+  else {
+
+    selectedWord.classList.add("wrong");
+
+    selectedDefinition.classList.add(
+      "wrong"
+    );
+
+
+    feedback.textContent =
+      "✕ Tato dvojice nepatří k sobě.";
+
+    feedback.className =
+      "feedback wrong-message";
+
+
+    setTimeout(() => {
+
+      selectedWord?.classList.remove(
+        "selected",
+        "wrong"
+      );
+
+      selectedDefinition?.classList.remove(
+        "selected",
+        "wrong"
+      );
+
+
+      selectedWord = null;
+      selectedDefinition = null;
+
+      feedback.textContent = "";
+
+      feedback.className =
+        "feedback";
+
+    }, 700);
+
+  }
+
+}
+
+
+function updateProgress() {
+
+  const percentage =
+    (completed / vocabulary.length) * 100;
+
+
+  document
+    .getElementById("progressText")
+    .textContent =
+    `${completed} / ${vocabulary.length}`;
+
+
+  document
+    .getElementById("progressBar")
+    .style.width =
+    `${percentage}%`;
+
+}
+
+
+document
+  .getElementById("restart")
+  .addEventListener(
+    "click",
+    createExercise
+  );
+
+
+createExercise();
+
+
+
+/* =====================================================
+   CVIČENÍ 2
+=====================================================
+
+   15 vět.
+   Každá má právě jednu správnou odpověď.
+===================================================== */
+
+
+const sentenceExercises = [
+
+  {
+    sentence:
+      "Po rozvodu bylo pro něj skutečným ______ najít si nové bydlení.",
+    options: [
+      "martyriem",
+      "milníkem",
+      "otazníkem"
+    ],
+    answer: "martyriem"
+  },
+
+  {
+    sentence:
+      "Stěhování do vlastního bytu pro ni představovalo důležitý životní ______.",
+    options: [
+      "milník",
+      "frustraci",
+      "pajzl"
+    ],
+    answer: "milník"
+  },
+
+  {
+    sentence:
+      "Při současných cenách nájmů není snadné ______ bydlení jen z jednoho platu.",
+    options: [
+      "utáhnout",
+      "nabádat",
+      "vyvstávat"
+    ],
+    answer: "utáhnout"
+  },
+
+  {
+    sentence:
+      "Každoroční stěhování a hledání nového bytu je pořádný ______.",
+    options: [
+      "opruz",
+      "milník",
+      "notný"
+    ],
+    answer: "opruz"
+  },
+
+  {
+    sentence:
+      "Dlouhodobá nejistota ohledně bydlení může vést k ______ a úzkosti.",
+    options: [
+      "frustraci",
+      "milníku",
+      "pajzlu"
+    ],
+    answer: "frustraci"
+  },
+
+  {
+    sentence:
+      "Při rozhodování o studiu často ______ otázka, jestli si student může dovolit žít v jiném městě.",
+    options: [
+      "vyvstává",
+      "váze",
+      "protlouká se"
+    ],
+    answer: "vyvstává"
+  },
+
+  {
+    sentence:
+      "I přes nízký příjem se nakonec nějak ______ a studium dokončil.",
+    options: [
+      "protloukl",
+      "nabádal",
+      "vypulíroval"
+    ],
+    answer: "protloukl"
+  },
+
+  {
+    sentence:
+      "Jednání mezi majitelem bytu a nájemníkem už několik týdnů ______.",
+    options: [
+      "vázne",
+      "utahuje",
+      "stojí"
+    ],
+    answer: "vázne"
+  },
+
+  {
+    sentence:
+      "Mladí lidé často ______ stabilní bydlení, ale nemohou si ho dovolit.",
+    options: [
+      "stojí o",
+      "nabádají",
+      "protloukají se"
+    ],
+    answer: "stojí o"
+  },
+
+  {
+    sentence:
+      "Rodiče své děti často ______, aby si co nejdříve našly vlastní bydlení.",
+    options: [
+      "nabádají",
+      "váznou",
+      "utahují"
+    ],
+    answer: "nabádají"
+  },
+
+  {
+    sentence:
+      "Po ______ rekonstrukci se starý dům změnil k nepoznání.",
+    options: [
+      "notné",
+      "frustrované",
+      "vázající"
+    ],
+    answer: "notné"
+  },
+
+  {
+    sentence:
+      "Práce z domova může být ______ – člověku dává svobodu, ale zároveň může vést k izolaci.",
+    options: [
+      "dvousečnou zbraní",
+      "čtyřkou",
+      "milníkem"
+    ],
+    answer: "dvousečnou zbraní"
+  },
+
+  {
+    sentence:
+      "Večer jsme místo drahého baru zašli do malé ______ na rohu.",
+    options: [
+      "čtyřky",
+      "pětky",
+      "nevraživosti"
+    ],
+    answer: "čtyřky"
+  },
+
+  {
+    sentence:
+      "Nová čtvrť působí trochu uměle – všechno je dokonale ______.",
+    options: [
+      "vypulírované",
+      "vázané",
+      "frustrované"
+    ],
+    answer: "vypulírované"
+  },
+
+  {
+    sentence:
+      "Mezi sousedy se postupně vytvořila značná ______.",
+    options: [
+      "nevraživost",
+      "ontologická jistota",
+      "čtyřka"
+    ],
+    answer: "nevraživost"
+  }
+
+];
+
+let secondScore = 0;
+let secondAnswered = 0;
+
+
+function createSecondExercise() {
+
+  const container =
+    document.getElementById("sentences");
+
+  container.innerHTML = "";
+
+  secondScore = 0;
+  secondAnswered = 0;
+
+  document
+    .getElementById("result")
+    .classList.remove("visible");
+
+
+  sentenceExercises.forEach(
+    (item, index) => {
+
+      const sentence =
+        document.createElement("div");
+
+      sentence.className =
+        "sentence";
+
+
+      const text =
+        document.createElement("div");
+
+      text.className =
+        "sentence-text";
+
+
+      text.innerHTML =
+        `<span class="sentence-number">
+          ${index + 1}.
+        </span>
+        ${item.sentence}`;
+
+
+      sentence.appendChild(text);
+
+
+      const answers =
+        document.createElement("div");
+
+      answers.className =
+        "answers";
+
+
+      const feedback =
+        document.createElement("div");
+
+      feedback.className =
+        "sentence-feedback";
+
+
+      shuffle(item.options).forEach(
+        option => {
+
+          const button =
+            document.createElement("button");
+
+          button.className =
+            "answer";
+
+          button.textContent =
+            option;
+
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              checkSecondAnswer(
+                button,
+                option,
+                item.answer,
+                answers,
+                feedback
+              );
+
+            }
+          );
+
+
+          answers.appendChild(button);
+
+        }
+      );
+
+
+      sentence.appendChild(answers);
+
+      sentence.appendChild(feedback);
+
+      container.appendChild(sentence);
+
+    }
+  );
+
+}
+
+
+function checkSecondAnswer(
+  button,
+  selected,
+  correct,
+  container,
+  feedback
+) {
+
+  /* Pokud už byla otázka zodpovězena,
+     nic neděláme. */
+
+  if (
+    container.dataset.answered === "true"
+  ) {
+    return;
+  }
+
+
+  if (selected === correct) {
+
+    button.classList.add("correct");
+
+    feedback.textContent =
+      "✓ Správně";
+
+    feedback.className =
+      "sentence-feedback correct";
+
+
+    container.dataset.answered =
+      "true";
+
+
+    container
+      .querySelectorAll(".answer")
+      .forEach(btn => {
+
+        btn.classList.add("disabled");
+
+      });
+
+
+    secondScore++;
+    secondAnswered++;
+
+
+    checkSecondFinished();
+
+  }
+
+  else {
+
+    button.classList.add("wrong");
+
+    feedback.textContent =
+      "✕ Zkus to znovu.";
+
+    feedback.className =
+      "sentence-feedback wrong";
+
+
+    setTimeout(() => {
+
+      button.classList.remove(
+        "wrong"
+      );
+
+      feedback.textContent = "";
+
+      feedback.className =
+        "sentence-feedback";
+
+    }, 700);
+
+  }
+
+}
+
+
+function checkSecondFinished() {
+
+  if (
+    secondAnswered !==
+    sentenceExercises.length
+  ) {
+    return;
+  }
+
+
+  const result =
+    document.getElementById("result");
+
+  const score =
+    document.getElementById("resultScore");
+
+  const text =
+    document.getElementById("resultText");
+
+
+  score.textContent =
+    `${secondScore} / 15`;
+
+
+  if (secondScore === 15) {
+
+    text.textContent =
+      "Perfektní práce. Všechny výrazy ovládáš.";
+
+  }
+
+  else if (secondScore >= 12) {
+
+    text.textContent =
+      "Velmi dobře. Většinu výrazů už používáš správně.";
+
+  }
+
+  else if (secondScore >= 9) {
+
+    text.textContent =
+      "Dobrá práce. Některé výrazy ještě stojí za zopakování.";
+
+  }
+
+  else {
+
+    text.textContent =
+      "Zkus si ještě jednou projít slovníček a cvičení zopakovat.";
+
+  }
+
+
+  result.classList.add("visible");
+
+}
+
+
+document
+  .getElementById("restartSecond")
+  .addEventListener(
+    "click",
+    createSecondExercise
+  );
+
+
+createSecondExercise();
+
+
+
+</script>
 
 </body>
 </html>
